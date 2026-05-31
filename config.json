@@ -1,0 +1,18 @@
+{
+  "stats": {
+    "weeks":    { "value": 3,   "label": "开发周数", "suffix": "+" },
+    "overall":  { "value": 30,   "label": "整体进度", "suffix": "%" }
+  },
+
+  "progress": [
+    { "icon": "🎮", "name": "渲染引擎升级", "pct": 75, "note": "渲染后端DX12升级", "color": "" },
+    { "icon": "🗺️", "name": "画面效果升级",     "pct": 25, "note": "现代渲染技术应用", "color": "" },
+    { "icon": "🎨", "name": "美术资源",     "pct": 70, "note": "贴图AI高清化", "color": "amber" },
+    { "icon": "🔊", "name": "音频系统",     "pct": 0, "note": "替换支持3D音效的音频引擎", "color": "amber" },
+    { "icon": "🐛", "name": "测试与优化",   "pct": 0, "note": "内部测试阶段即将启动", "color": "" }
+  ],
+
+  "timeline": [
+    { "date": "2025 Q3",    "title": "项目启动", "status": "done", "desc": "核心团队组建，技术选型与引擎迁移评估完成。" }
+  ]
+}
