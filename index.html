@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,9 @@
   <meta http-equiv="Expires" content="0" />
   <title>ACE REMAKE — 官方网站</title>
   <meta name="description" content="ACE REMAKE 官方网站 — 探索全新的游戏世界" />
+  <meta name="ace-auth-api-base" content="http://localhost:3001" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="auth.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     /* ============================================================
@@ -518,6 +520,35 @@
       background: #1e90ff; color: #fff;
     }
     .community-card.qq .community-btn:hover { background: #1a7fd4; }
+
+    /* ---- QR Modal ---- */
+    .qr-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .qr-modal.show { display: flex; animation: fadeIn .2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .qr-modal-box {
+      background: var(--c-bg2); border: 1px solid var(--c-border);
+      border-radius: 16px; padding: 28px; text-align: center;
+      max-width: 360px; cursor: default;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.5);
+    }
+    .qr-modal-box img {
+      width: 280px; height: auto; border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .qr-modal-box p {
+      font-size: 14px; color: var(--c-muted);
+    }
+    .qr-modal-box .qr-close {
+      margin-top: 16px; padding: 8px 24px; border: none;
+      border-radius: 8px; background: #1e90ff; color: #fff;
+      font-size: 14px; cursor: pointer;
+    }
+    .qr-modal-box .qr-close:hover { background: #1a7fd4; }
     .community-count {
       font-size: 12px; color: var(--c-muted);
       display: flex; align-items: center; gap: 4px;
@@ -654,28 +685,30 @@
   <!-- ============================================================
        Navbar
   ============================================================ -->
-  <nav class="navbar" id="navbar">
-    <div class="container nav-inner">
-      <a href="#" class="nav-logo">ACE REMAKE</a>
-      <ul class="nav-links">
-        <li><a href="#about">关于游戏</a></li>
+    <nav class="navbar" id="navbar">
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo">ACE REMAKE</a>
+        <ul class="nav-links">
+          <li><a href="#about">关于游戏</a></li>
         <li><a href="#progress">开发进度</a></li>
-        <li><a href="#media">截图</a></li>
-        <li><a href="#community">社区</a></li>
-      </ul>
-      <a href="#community" class="btn btn-primary nav-cta">加入社区</a>
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
+          <li><a href="#media">截图</a></li>
+          <li><a href="#community">社区</a></li>
+        </ul>
+        <a href="#community" class="btn btn-primary nav-cta">加入社区</a>
+        <button type="button" class="btn btn-ghost nav-cta" id="authCta" data-auth-cta>登录 / 注册</button>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
       </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about" onclick="closeMobile()">关于游戏</a>
+      <a href="#progress" onclick="closeMobile()">开发进度</a>
+      <a href="#media" onclick="closeMobile()">截图</a>
+      <a href="#community" onclick="closeMobile()">社区</a>
+      <a href="#community" class="btn btn-primary" onclick="closeMobile()">加入社区</a>
+      <a href="#" id="mobileAuthCta" data-auth-cta onclick="return false">登录 / 注册</a>
     </div>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#about" onclick="closeMobile()">关于游戏</a>
-    <a href="#progress" onclick="closeMobile()">开发进度</a>
-    <a href="#media" onclick="closeMobile()">截图</a>
-    <a href="#community" onclick="closeMobile()">社区</a>
-    <a href="#community" class="btn btn-primary" onclick="closeMobile()">加入社区</a>
-  </div>
 
   <!-- ============================================================
        Hero
@@ -737,7 +770,7 @@
           一次全新的<span class="highlight">重制旅程</span>
         </h2>
         <p class="section-desc">
-          ACE REMAKE 是对经典玩法的全面革新，保留原作精髓的同时，带来更现代的画面、更流畅的手感，以及全新设计的关卡与故事。
+          保留原作精髓的同时，带来更现代的画面、更流畅的手感，集合历年各地私服好用的新功能和好玩的新玩法。
         </p>
       </div>
       <div class="features-grid">
@@ -755,11 +788,6 @@
           <div class="feature-icon amber">🗺️</div>
           <div class="feature-title">扩展剧情世界</div>
           <div class="feature-desc">在原作故事线基础上延伸，加入全新支线与隐藏内容，重新探索你熟悉又陌生的世界。</div>
-        </div>
-        <div class="feature-card reveal">
-          <div class="feature-icon green">🔊</div>
-          <div class="feature-title">原声音乐重录</div>
-          <div class="feature-desc">与原作团队协作，以现代编曲重新演绎经典主题曲，听觉与视觉同步升级。</div>
         </div>
       </div>
     </div>
@@ -850,7 +878,7 @@
           <div class="community-name">Discord</div>
           <div class="community-desc">参与每日讨论、开发直播和社区活动，与全球玩家共同期待游戏发布。</div>
           <div class="community-count"><span class="online-dot"></span>在线成员较多</div>
-          <a href="#" class="community-btn" onclick="alert('Discord 链接即将上线！')">加入 Discord →</a>
+          <a href="#" class="community-btn" id="btnDiscord">加入 Discord →</a>
         </div>
         <!-- Kook -->
         <div class="community-card kook reveal">
@@ -861,7 +889,7 @@
           <div class="community-name">KOOK</div>
           <div class="community-desc">国内玩家首选频道，实时语音、文字频道，开发者每周在线答疑。</div>
           <div class="community-count"><span class="online-dot"></span>每日活跃更新</div>
-          <a href="#" class="community-btn" onclick="alert('KOOK 链接即将上线！')">加入 KOOK →</a>
+          <a href="#" class="community-btn" id="btnKook">加入 KOOK →</a>
         </div>
         <!-- QQ Group -->
         <div class="community-card qq reveal">
@@ -871,7 +899,7 @@
           <div class="community-name">QQ 群</div>
           <div class="community-desc">国内最早的玩家聚集地，群文件、公告、内测码优先在此发放。</div>
           <div class="community-count"><span class="online-dot"></span>群号即将公布</div>
-          <a href="#" class="community-btn" onclick="alert('QQ 群号即将公布！')">加入 QQ 群 →</a>
+          <a href="#" class="community-btn" id="btnQQ">加入 QQ 群 →</a>
         </div>
       </div>
     </div>
@@ -892,6 +920,129 @@
           <button class="btn btn-primary" onclick="handleSubscribe(this)">订阅通知</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       Auth Modal
+  ============================================================ -->
+  <div class="auth-modal" id="authModal" hidden>
+    <div class="auth-backdrop" data-auth-close></div>
+    <div class="auth-dialog">
+      <div class="auth-dialog-header">
+        <div>
+          <h2>账号认证</h2>
+          <p>使用官网账号登录，支持账号激活与密码重置。</p>
+        </div>
+        <button type="button" class="auth-close" data-auth-close aria-label="关闭">&times;</button>
+      </div>
+
+      <div class="auth-status" id="authStatus" data-type="info" hidden></div>
+
+      <section data-auth-view="login">
+        <form class="auth-form" id="loginForm">
+          <div class="auth-field">
+            <label for="loginAccountName">账号</label>
+            <input id="loginAccountName" name="accountName" type="text" required />
+          </div>
+          <div class="auth-field">
+            <label for="loginPassword">密码</label>
+            <input id="loginPassword" name="password" type="password" required />
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">登录</button>
+            <div class="auth-inline-links">
+              <button type="button" class="auth-link-button" data-switch-auth-view="register">注册账号</button>
+              <button type="button" class="auth-link-button" data-switch-auth-view="forgot">忘记密码</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section data-auth-view="register" hidden>
+        <form class="auth-form" id="registerForm">
+          <div class="auth-field">
+            <label for="registerAccountName">账号</label>
+            <input id="registerAccountName" name="accountName" type="text" required />
+          </div>
+          <div class="auth-field">
+            <label for="registerEmail">邮箱</label>
+            <input id="registerEmail" name="email" type="email" required />
+          </div>
+          <div class="auth-field">
+            <label for="registerPassword">密码</label>
+            <input id="registerPassword" name="password" type="password" minlength="8" required />
+          </div>
+          <div class="auth-field">
+            <label for="registerConfirmPassword">确认密码</label>
+            <input id="registerConfirmPassword" name="confirmPassword" type="password" minlength="8" required />
+          </div>
+          <label class="auth-checkbox">
+            <input name="agreeToTerms" type="checkbox" value="yes" required />
+            <span>我同意服务条款及隐私政策。</span>
+          </label>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">提交注册申请</button>
+            <div class="auth-inline-links">
+              <button type="button" class="auth-link-button" data-switch-auth-view="login">返回登录</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section data-auth-view="activate" hidden>
+        <form class="auth-form" id="activateForm">
+          <div class="auth-field">
+            <label for="activateToken">激活码</label>
+            <input id="activateToken" name="token" type="text" required />
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">激活账号</button>
+            <div class="auth-inline-links">
+              <button type="button" class="auth-link-button" data-switch-auth-view="login">返回登录</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section data-auth-view="forgot" hidden>
+        <form class="auth-form" id="forgotForm">
+          <div class="auth-field">
+            <label for="forgotAccountOrEmail">账号或邮箱</label>
+            <input id="forgotAccountOrEmail" name="accountOrEmail" type="text" required />
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">发送重置邮件</button>
+            <div class="auth-inline-links">
+              <button type="button" class="auth-link-button" data-switch-auth-view="reset">已有重置码</button>
+              <button type="button" class="auth-link-button" data-switch-auth-view="login">返回登录</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section data-auth-view="reset" hidden>
+        <form class="auth-form" id="resetForm">
+          <div class="auth-field">
+            <label for="resetToken">重置码</label>
+            <input id="resetToken" name="token" type="text" required />
+          </div>
+          <div class="auth-field">
+            <label for="resetPasswordNew">新密码</label>
+            <input id="resetPasswordNew" name="newPassword" type="password" minlength="8" required />
+          </div>
+          <div class="auth-field">
+            <label for="resetConfirmPassword">确认新密码</label>
+            <input id="resetConfirmPassword" name="confirmPassword" type="password" minlength="8" required />
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">重置密码</button>
+            <div class="auth-inline-links">
+              <button type="button" class="auth-link-button" data-switch-auth-view="login">返回登录</button>
+            </div>
+          </div>
+        </form>
+      </section>
     </div>
   </div>
 
@@ -941,6 +1092,15 @@
       </div>
     </div>
   </footer>
+
+  <!-- QR Code Modal -->
+  <div class="qr-modal" id="qrModal" onclick="closeQRCode(event)">
+    <div class="qr-modal-box">
+      <img src="qrcode_1785258938041.jpg" alt="QQ 群二维码" />
+      <p>扫码加入 QQ 群</p>
+      <button class="qr-close" onclick="closeQRCode(event, true)">关闭</button>
+    </div>
+  </div>
 
   <!-- ============================================================
        JavaScript
@@ -1124,6 +1284,30 @@
 
     loadConfig();
 
+    /* ---- QR Code Modal ---- */
+    function showQRCode() {
+      document.getElementById('qrModal').classList.add('show');
+    }
+    function closeQRCode(e, force) {
+      if (force || e.target === e.currentTarget) {
+        document.getElementById('qrModal').classList.remove('show');
+      }
+    }
+
+    /* ---- Community buttons ---- */
+    document.getElementById('btnDiscord').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('暂未开通');
+    });
+    document.getElementById('btnKook').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('暂未开通');
+    });
+    document.getElementById('btnQQ').addEventListener('click', function(e) {
+      e.preventDefault();
+      showQRCode();
+    });
+
     /* ---- Subscribe ---- */
     function handleSubscribe(btn) {
       const input = btn.previousElementSibling;
@@ -1139,5 +1323,6 @@
       input.disabled = true;
     }
   </script>
+  <script type="module" src="auth-ui.js?v=3"></script>
 </body>
 </html>

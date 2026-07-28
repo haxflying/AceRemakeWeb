@@ -1,4 +1,6 @@
-# ACE REMAKE 官网 - 纯静态站点，无需构建
+# ACE REMAKE static site
+# The auth service is deployed separately; update index.html ace-auth-api-base
+# or place both behind the same origin proxy before production.
 [build]
   publish = "."
   command = ""

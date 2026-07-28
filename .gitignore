@@ -1,5 +1,10 @@
 .workbuddy/
 node_modules/
+auth-service/data/
+auth-service/.tmp-test/
+auth-service/.tmp-test-reset/
 .DS_Store
 Thumbs.db
 *.zip
+auth-service.stdout.log
+auth-service.stderr.log

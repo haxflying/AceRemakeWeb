@@ -1,18 +1,23 @@
 {
   "stats": {
-    "weeks":    { "value": 3,   "label": "开发周数", "suffix": "+" },
-    "overall":  { "value": 30,   "label": "整体进度", "suffix": "%" }
+    "weeks":    { "value": 10,   "label": "开发周数", "suffix": "+" },
+    "overall":  { "value": 60,   "label": "整体进度", "suffix": "%" }
   },
 
   "progress": [
-    { "icon": "🎮", "name": "渲染引擎升级", "pct": 75, "note": "渲染后端DX12升级", "color": "" },
-    { "icon": "🗺️", "name": "画面效果升级",     "pct": 25, "note": "现代渲染技术应用", "color": "" },
+    { "icon": "🎮", "name": "渲染引擎升级", "pct": 85, "note": "渲染后端DX12升级", "color": "" },
+    { "icon": "🗺️", "name": "画面效果升级",     "pct": 65, "note": "现代渲染技术应用", "color": "" },
     { "icon": "🎨", "name": "美术资源",     "pct": 70, "note": "贴图AI高清化", "color": "amber" },
-    { "icon": "🔊", "name": "音频系统",     "pct": 0, "note": "替换支持3D音效的音频引擎", "color": "amber" },
-    { "icon": "🐛", "name": "测试与优化",   "pct": 0, "note": "内部测试阶段即将启动", "color": "" }
+    { "icon": "🔊", "name": "音频系统",     "pct": 90, "note": "替换支持3D音效的音频引擎", "color": "amber" },
+    { "icon": "🐛", "name": "测试与优化",   "pct": 50, "note": "内部测试阶段即将启动", "color": "" }
   ],
 
   "timeline": [
-    { "date": "2025 Q3",    "title": "项目启动", "status": "done", "desc": "核心团队组建，技术选型与引擎迁移评估完成。" }
+    { "date": "2026 Q2",    "title": "项目启动", "status": "done", "desc": "核心团队组建，技术选型与引擎迁移评估完成。" },
+    { "date": "2026 Q2",    "title": "客户端升级64位", "status": "done", "desc": "客户端从32位升级到64位" },
+    { "date": "2026 Q3",    "title": "渲染管线升级", "status": "done", "desc": "渲染管线从DX9升级到DX12" },
+    { "date": "2026 Q3",    "title": "美术资源升级", "status": "done", "desc": "贴图AI高清化，模型优化" },
+    { "date": "2026 Q3",    "title": "音频系统升级", "status": "done", "desc": "升级至基于FMOD的3D空间音频引擎" },
+    { "date": "2026 Q3",    "title": "多语言版本",   "status": "in progress",     "desc": "单客户端，多语言切换" }
   ]
 }
