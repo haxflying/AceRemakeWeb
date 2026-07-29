@@ -438,14 +438,26 @@
     }
     .ss-card:hover { border-color: rgba(0,212,255,0.35); transform: scale(1.02); }
     .ss-card.tall { grid-row: span 2; }
-    .ss-icon { font-size: 32px; opacity: 0.4; }
-    .ss-label { opacity: 0.5; font-size: 12px; }
+    .ss-card.wide { grid-column: span 2; }
+    .ss-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .ss-card:hover img { transform: scale(1.05); }
+    .ss-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 14px 16px; margin: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      opacity: 0; font-size: 13px; color: #fff;
+      transition: opacity 0.3s ease;
+    }
+    .ss-card:hover .ss-label { opacity: 1; }
     .ss-card-gradient {
-      position: absolute; inset: 0;
+      position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(135deg,
-        rgba(124,58,237,0.1) 0%,
+        rgba(124,58,237,0.15) 0%,
         transparent 50%,
-        rgba(0,212,255,0.05) 100%);
+        rgba(0,212,255,0.08) 100%);
     }
 
     /* ============================================================
@@ -660,6 +672,7 @@
         grid-template-columns: 1fr 1fr;
       }
       .ss-card.tall { grid-row: span 1; }
+      .ss-card.wide { grid-column: span 1; }
       .cta-inner { flex-direction: column; align-items: flex-start; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
@@ -828,33 +841,28 @@
       </div>
       <div class="screenshot-placeholder reveal">
         <div class="ss-card tall">
+          <img src="images/0.jpg" alt="ACE REMAKE 截图 1">
           <div class="ss-card-gradient"></div>
-          <span class="ss-icon">🖼️</span>
-          <span class="ss-label">主场景截图</span>
+          <span class="ss-label">截图 1</span>
         </div>
         <div class="ss-card">
+          <img src="images/1.jpg" alt="ACE REMAKE 截图 2">
           <div class="ss-card-gradient"></div>
-          <span class="ss-icon">⚔️</span>
-          <span class="ss-label">战斗系统</span>
+          <span class="ss-label">截图 2</span>
         </div>
         <div class="ss-card">
+          <img src="images/2.jpg" alt="ACE REMAKE 截图 3">
           <div class="ss-card-gradient"></div>
-          <span class="ss-icon">🌌</span>
-          <span class="ss-label">环境光效</span>
+          <span class="ss-label">截图 3</span>
         </div>
-        <div class="ss-card">
+        <div class="ss-card wide">
+          <img src="images/3.jpg" alt="ACE REMAKE 截图 4">
           <div class="ss-card-gradient"></div>
-          <span class="ss-icon">🎭</span>
-          <span class="ss-label">角色立绘</span>
-        </div>
-        <div class="ss-card">
-          <div class="ss-card-gradient"></div>
-          <span class="ss-icon">🗺️</span>
-          <span class="ss-label">关卡概览</span>
+          <span class="ss-label">截图 4</span>
         </div>
       </div>
       <div class="media-note reveal">
-        📌 &nbsp;实际截图将在内测前陆续更新，关注我们的社区获取第一手资讯。
+        📌 &nbsp;更多截图将在内测前陆续更新，关注我们的社区获取第一手资讯。
       </div>
     </div>
   </section>
