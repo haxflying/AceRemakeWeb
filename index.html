@@ -358,6 +358,39 @@
     .progress-note {
       font-size: 12px; color: var(--c-muted); margin-top: 6px;
     }
+    /* Sub-progress items */
+    .progress-sub {
+      margin-top: 12px; padding-left: 28px;
+      border-left: 2px solid rgba(255,255,255,0.08);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .progress-sub-item {}
+    .progress-sub-header {
+      display: flex; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .progress-sub-name { font-size: 13px; color: var(--c-muted); }
+    .progress-sub-pct {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px; color: rgba(0,212,255,0.7);
+    }
+    .progress-sub-track {
+      height: 4px; background: rgba(255,255,255,0.04);
+      border-radius: 100px; overflow: hidden;
+    }
+    .progress-sub-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(124,58,237,0.5));
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+      width: 0;
+    }
+    .progress-sub-text { gap: 8px; }
+    .progress-sub-item-text {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .progress-sub-bullet {
+      color: var(--c-accent); font-size: 18px; line-height: 1;
+    }
     /* Milestones / Timeline */
     .timeline { position: relative; padding-left: 24px; }
     .timeline::before {
@@ -458,6 +491,83 @@
         rgba(124,58,237,0.15) 0%,
         transparent 50%,
         rgba(0,212,255,0.08) 100%);
+    }
+
+    /* ============================================================
+       Roadmap
+    ============================================================ */
+    .roadmap-section { background: var(--c-bg); }
+    .roadmap-groups { display: flex; flex-direction: column; gap: 48px; margin-top: 56px; }
+    .roadmap-group {}
+    .roadmap-group-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .roadmap-group-icon { font-size: 24px; }
+    .roadmap-group-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px; font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .roadmap-group-badge {
+      font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 100px;
+      background: rgba(0,212,255,0.12); color: var(--c-accent);
+      margin-left: auto;
+    }
+    .roadmap-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+    .roadmap-card {
+      background: var(--c-bg2); border: 1px solid var(--c-border);
+      border-radius: 12px; padding: 18px 20px;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .roadmap-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--c-accent2), var(--c-accent));
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .roadmap-card:hover { border-color: rgba(0,212,255,0.25); }
+    .roadmap-card:hover::before { opacity: 1; }
+    .roadmap-card.wip {
+      border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.04);
+    }
+    .roadmap-card.wip::before {
+      background: linear-gradient(180deg, #d97706, var(--c-accent3));
+      opacity: 0.6;
+    }
+    .roadmap-card-index {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.15); min-width: 24px; text-align: center;
+      padding-top: 1px;
+    }
+    .roadmap-card.wip .roadmap-card-index { color: rgba(245,158,11,0.35); }
+    .roadmap-card-body { flex: 1; }
+    .roadmap-card-name {
+      font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.85);
+    }
+    .roadmap-card-note {
+      font-size: 12px; color: var(--c-muted); margin-top: 6px; line-height: 1.5;
+    }
+    .roadmap-card-badge {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 100px;
+      background: rgba(245,158,11,0.15); color: var(--c-accent3);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .roadmap-cards { grid-template-columns: 1fr; }
+      .roadmap-groups { gap: 36px; }
     }
 
     /* ============================================================
@@ -703,7 +813,8 @@
         <a href="#" class="nav-logo">ACE REMAKE</a>
         <ul class="nav-links">
           <li><a href="#about">关于游戏</a></li>
-        <li><a href="#progress">开发进度</a></li>
+          <li><a href="#progress">开发进度</a></li>
+          <li><a href="#roadmap">路线图</a></li>
           <li><a href="#media">截图</a></li>
           <li><a href="#community">社区</a></li>
         </ul>
@@ -717,6 +828,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <a href="#about" onclick="closeMobile()">关于游戏</a>
       <a href="#progress" onclick="closeMobile()">开发进度</a>
+      <a href="#roadmap" onclick="closeMobile()">路线图</a>
       <a href="#media" onclick="closeMobile()">截图</a>
       <a href="#community" onclick="closeMobile()">社区</a>
       <a href="#community" class="btn btn-primary" onclick="closeMobile()">加入社区</a>
@@ -826,6 +938,24 @@
         <!-- Timeline -->
         <div class="timeline reveal" id="timeline"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Roadmap
+  ============================================================ -->
+  <section class="section roadmap-section" id="roadmap">
+    <div class="container">
+      <div class="reveal">
+        <span class="section-tag">开发路线图</span>
+        <h2 class="section-title">
+          未来<span class="highlight">计划</span>
+        </h2>
+        <p class="section-desc">
+          以下是我们规划中的功能，将根据社区反馈和开发资源逐步实现。
+        </p>
+      </div>
+      <div class="roadmap-groups reveal" id="roadmapGroups"></div>
     </div>
   </section>
 
@@ -1069,6 +1199,7 @@
           <ul>
             <li><a href="#about">关于游戏</a></li>
             <li><a href="#progress">开发进度</a></li>
+            <li><a href="#roadmap">路线图</a></li>
             <li><a href="#media">截图</a></li>
           </ul>
         </div>
@@ -1181,6 +1312,7 @@
         renderStats(cfg.stats);
         renderProgress(cfg.progress);
         renderTimeline(cfg.timeline);
+        renderRoadmap(cfg.roadmap);
         setupAnimations();
       } catch (err) {
         console.error('Failed to load config.json:', err);
@@ -1207,14 +1339,38 @@
         const cls = item.color || '';
         const div = document.createElement('div');
         div.className = 'progress-item';
-        div.innerHTML = `<div class="progress-header">
-                           <span class="progress-name">${item.icon} ${item.name}</span>
-                           <span class="progress-pct">${item.pct}%</span>
+        let html = `<div class="progress-header">
+                       <span class="progress-name">${item.icon} ${item.name}</span>
+                       <span class="progress-pct">${item.pct}%</span>
+                     </div>
+                     <div class="progress-track">
+                       <div class="progress-fill ${cls}" data-pct="${item.pct}"></div>
+                     </div>
+                     <div class="progress-note">${item.note}</div>`;
+        if (item.sub && item.sub.length) {
+          const hasBars = item.sub.some(s => s.pct != null);
+          html += '<div class="progress-sub' + (hasBars ? '' : ' progress-sub-text') + '">';
+          item.sub.forEach(sub => {
+            if (sub.pct != null) {
+              html += `<div class="progress-sub-item">
+                         <div class="progress-sub-header">
+                           <span class="progress-sub-name">${sub.name}</span>
+                           <span class="progress-sub-pct">${sub.pct}%</span>
                          </div>
-                         <div class="progress-track">
-                           <div class="progress-fill ${cls}" data-pct="${item.pct}"></div>
+                         <div class="progress-sub-track">
+                           <div class="progress-sub-fill" data-pct="${sub.pct}"></div>
                          </div>
-                         <div class="progress-note">${item.note}</div>`;
+                       </div>`;
+            } else {
+              html += `<div class="progress-sub-item progress-sub-item-text">
+                         <span class="progress-sub-bullet">·</span>
+                         <span class="progress-sub-name">${sub.name}</span>
+                       </div>`;
+            }
+          });
+          html += '</div>';
+        }
+        div.innerHTML = html;
         bars.appendChild(div);
       });
     }
@@ -1237,6 +1393,41 @@
       });
     }
 
+    function renderRoadmap(groups) {
+      if (!groups || !groups.length) return;
+      const container = document.getElementById('roadmapGroups');
+      groups.forEach((group, gi) => {
+        const count = group.items.length;
+        const grpDiv = document.createElement('div');
+        grpDiv.className = 'roadmap-group';
+        let html = `<div class="roadmap-group-header">
+                      <span class="roadmap-group-icon">${group.icon}</span>
+                      <span class="roadmap-group-title">${group.category}</span>
+                      <span class="roadmap-group-badge">${count} 项</span>
+                    </div>
+                    <div class="roadmap-cards">`;
+        group.items.forEach((item, ii) => {
+          const isWip = item.status === 'in-progress';
+          const wipCls = isWip ? ' wip' : '';
+          html += `<div class="roadmap-card${wipCls}">
+                     <span class="roadmap-card-index">${String(ii + 1).padStart(2, '0')}</span>
+                     <div class="roadmap-card-body">
+                       <div class="roadmap-card-name">${item.name}</div>`;
+          if (item.note) {
+            html += `       <div class="roadmap-card-note">${item.note}</div>`;
+          }
+          if (isWip) {
+            html += `       <span class="roadmap-card-badge">✦ 进行中</span>`;
+          }
+          html += `     </div>
+                   </div>`;
+        });
+        html += '</div>';
+        grpDiv.innerHTML = html;
+        container.appendChild(grpDiv);
+      });
+    }
+
     function setupAnimations() {
       /* ---- Scroll reveal ---- */
       const reveals = document.querySelectorAll('.reveal');
@@ -1254,7 +1445,7 @@
       const progressObs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
-            const fills = e.target.querySelectorAll('.progress-fill[data-pct]');
+            const fills = e.target.querySelectorAll('.progress-fill[data-pct], .progress-sub-fill[data-pct]');
             fills.forEach(fill => {
               fill.style.width = fill.dataset.pct + '%';
             });

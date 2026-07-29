@@ -5,8 +5,21 @@
   },
 
   "progress": [
-    { "icon": "🎮", "name": "渲染引擎升级", "pct": 85, "note": "渲染后端DX12升级", "color": "" },
-    { "icon": "🗺️", "name": "画面效果升级",     "pct": 65, "note": "现代渲染技术应用", "color": "" },
+    { "icon": "🎮", "name": "渲染引擎升级", "pct": 85, "note": "渲染后端DX12升级", "color": "",
+      "sub": [
+        { "name": "接入 Diligent Engine 作为渲染后端" },
+        { "name": "基于 Render Graph 的现代渲染架构" },
+        { "name": "接入 DLSS SR / FG" }
+      ]
+    },
+    { "icon": "🗺️", "name": "画面效果升级",     "pct": 65, "note": "现代渲染技术应用", "color": "",
+      "sub": [
+        { "name": "基于物理的光照系统", "pct": 90 },
+        { "name": "自适应地图系统", "pct": 100 },
+        { "name": "可交互的动态水面系统", "pct": 80 },
+        { "name": "基于真实大气散射的昼夜系统", "pct": 40 }
+      ]
+    },
     { "icon": "🎨", "name": "美术资源",     "pct": 70, "note": "贴图AI高清化", "color": "amber" },
     { "icon": "🔊", "name": "音频系统",     "pct": 90, "note": "替换支持3D音效的音频引擎", "color": "amber" },
     { "icon": "🐛", "name": "测试与优化",   "pct": 50, "note": "内部测试阶段即将启动", "color": "" }
@@ -19,5 +32,36 @@
     { "date": "2026 Q3",    "title": "美术资源升级", "status": "done", "desc": "贴图AI高清化，模型优化" },
     { "date": "2026 Q3",    "title": "音频系统升级", "status": "done", "desc": "升级至基于FMOD的3D空间音频引擎" },
     { "date": "2026 Q3",    "title": "多语言版本",   "status": "in progress",     "desc": "单客户端，多语言切换" }
+  ],
+
+  "roadmap": [
+    {
+      "category": "客户端",
+      "icon": "💻",
+      "items": [
+        { "name": "单客户端，多语言切换（中/英/越）", "status": "in-progress" }
+      ]
+    },
+    {
+      "category": "游戏性",
+      "icon": "🎯",
+      "items": [
+        { "name": "技能栏换装备" },
+        { "name": "服务器距离判定校准", "note": "不影响低延迟BG玩家空炸手感的前提下避免其他玩家远距离被BG爆菊" },
+        { "name": "FFA / FFFA 等个人/编队死斗模式" },
+        { "name": "超大地图缩圈吃鸡模式" },
+        { "name": "自动阵营平衡的野战模式" }
+      ]
+    },
+    {
+      "category": "玩家外观",
+      "icon": "✨",
+      "items": [
+        { "name": "游戏内自定义装甲材质与颜色", "note": "金属、塑料、玻璃、水晶、熔岩 — 参考三角洲、COD枪皮" },
+        { "name": "游戏内自定义尾焰", "note": "颜色、大小、渐变、风格" },
+        { "name": "游戏内自行组合特效元素", "note": "可配置特效大小、粗细、疏密、音效" },
+        { "name": "自定义装甲喷漆", "note": "参考赛车游戏自定义赛车拉花" }
+      ]
+    }
   ]
 }
