@@ -22,7 +22,7 @@
     },
     { "icon": "🎨", "name": "美术资源",     "pct": 70, "note": "贴图AI高清化", "color": "amber" },
     { "icon": "🔊", "name": "音频系统",     "pct": 90, "note": "替换支持3D音效的音频引擎", "color": "amber" },
-    { "icon": "🐛", "name": "测试与优化",   "pct": 50, "note": "内部测试阶段即将启动", "color": "" }
+    { "icon": "🐛", "name": "测试与优化",   "pct": 50, "note": "内部测试进行中", "color": "" }
   ],
 
   "timeline": [
@@ -31,7 +31,8 @@
     { "date": "2026 Q3",    "title": "渲染管线升级", "status": "done", "desc": "渲染管线从DX9升级到DX12" },
     { "date": "2026 Q3",    "title": "美术资源升级", "status": "done", "desc": "贴图AI高清化，模型优化" },
     { "date": "2026 Q3",    "title": "音频系统升级", "status": "done", "desc": "升级至基于FMOD的3D空间音频引擎" },
-    { "date": "2026 Q3",    "title": "多语言版本",   "status": "in progress",     "desc": "单客户端，多语言切换" }
+    { "date": "2026 Q3",    "title": "多语言版本",   "status": "done",     "desc": "单客户端，多语言切换" },
+    { "date": "2026 Q3",    "title": "内部测试",   "status": "in-progress",     "desc": "系统、玩法、平衡性测试" }
   ],
 
   "roadmap": [
@@ -39,16 +40,17 @@
       "category": "客户端",
       "icon": "💻",
       "items": [
-        { "name": "单客户端，多语言切换（中/英/越）", "status": "in-progress" }
+        { "name": "单客户端，多语言切换（中/英/越）", "status": "done" }
       ]
     },
     {
       "category": "游戏性",
       "icon": "🎯",
       "items": [
-        { "name": "技能栏换装备" },
+        { "name": "技能栏换装备" , "status": "done" },
         { "name": "服务器距离判定校准", "note": "不影响低延迟BG玩家空炸手感的前提下避免其他玩家远距离被BG爆菊" },
-        { "name": "FFA / FFFA 等个人/编队死斗模式" },
+        { "name": "装备系统、任务系统、养成系统" , "status": "in-progress" },
+        { "name": "FFA / FFFA 等个人/编队死斗模式" , "status": "in-progress" },
         { "name": "超大地图缩圈吃鸡模式" },
         { "name": "自动阵营平衡的野战模式" }
       ]

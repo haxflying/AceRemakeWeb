@@ -544,6 +544,18 @@
       background: linear-gradient(180deg, #d97706, var(--c-accent3));
       opacity: 0.6;
     }
+    .roadmap-card.done {
+      border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.03);
+    }
+    .roadmap-card.done::before {
+      background: linear-gradient(180deg, #22c55e, #16a34a);
+      opacity: 0.5;
+    }
+    .roadmap-card.done .roadmap-card-name {
+      text-decoration: line-through; text-decoration-color: rgba(34,197,94,0.4);
+      text-decoration-thickness: 1px; color: rgba(255,255,255,0.5);
+    }
+    .roadmap-card.done .roadmap-card-index { color: rgba(34,197,94,0.3); }
     .roadmap-card-index {
       font-family: 'Orbitron', sans-serif;
       font-size: 13px; font-weight: 600;
@@ -563,6 +575,9 @@
       padding: 2px 8px; border-radius: 100px;
       background: rgba(245,158,11,0.15); color: var(--c-accent3);
       margin-top: 8px;
+    }
+    .roadmap-card-badge.done {
+      background: rgba(34,197,94,0.15); color: #22c55e;
     }
 
     @media (max-width: 768px) {
@@ -1398,18 +1413,21 @@
       const container = document.getElementById('roadmapGroups');
       groups.forEach((group, gi) => {
         const count = group.items.length;
+        const doneCount = group.items.filter(i => i.status === 'done').length;
+        const badgeText = doneCount > 0 ? `${doneCount}/${count} 已完成` : `${count} 项`;
         const grpDiv = document.createElement('div');
         grpDiv.className = 'roadmap-group';
         let html = `<div class="roadmap-group-header">
                       <span class="roadmap-group-icon">${group.icon}</span>
                       <span class="roadmap-group-title">${group.category}</span>
-                      <span class="roadmap-group-badge">${count} 项</span>
+                      <span class="roadmap-group-badge">${badgeText}</span>
                     </div>
                     <div class="roadmap-cards">`;
         group.items.forEach((item, ii) => {
           const isWip = item.status === 'in-progress';
-          const wipCls = isWip ? ' wip' : '';
-          html += `<div class="roadmap-card${wipCls}">
+          const isDone = item.status === 'done';
+          const statusCls = isWip ? ' wip' : isDone ? ' done' : '';
+          html += `<div class="roadmap-card${statusCls}">
                      <span class="roadmap-card-index">${String(ii + 1).padStart(2, '0')}</span>
                      <div class="roadmap-card-body">
                        <div class="roadmap-card-name">${item.name}</div>`;
@@ -1418,6 +1436,9 @@
           }
           if (isWip) {
             html += `       <span class="roadmap-card-badge">✦ 进行中</span>`;
+          }
+          if (isDone) {
+            html += `       <span class="roadmap-card-badge done">✓ 已完成</span>`;
           }
           html += `     </div>
                    </div>`;
